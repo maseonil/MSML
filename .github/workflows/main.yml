@@ -38,4 +38,4 @@ jobs:
         git add preprocessing/gym_dataset_preprocessing.csv
         
         # Commit hanya jika ada perubahan data
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update: gym_dataset_preprocessing.csv [skip ci]" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update: gym_dataset_preprocessing.csv" && git push)
