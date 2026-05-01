@@ -2,9 +2,9 @@ name: Automated Preprocessing Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [ Eksperimen_SML_Rifky-Rais-Maselino ]
   pull_request:
-    branches: [ main ]
+    branches: [ Eksperimen_SML_Rifky-Rais-Maselino ]
 
 jobs:
   preprocess:
