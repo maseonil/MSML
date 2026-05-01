@@ -27,7 +27,7 @@ jobs:
     - name: Run Automate Script
       run: |
         # Menjalankan script automate sesuai struktur folder
-        python preprocessing/automate_Nama-siswa.py
+        python preprocessing/automate_rifky_rais_maselino.py
 
     - name: Commit and Push Updated Dataset
       run: |
