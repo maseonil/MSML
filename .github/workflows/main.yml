@@ -1,0 +1,41 @@
+name: Automated Preprocessing Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4 # Update ke v4 untuk kompatibilitas lebih baik
+
+    - name: Set up Python
+      uses: actions/setup-python@v5 # Update ke v5
+      with:
+        python-version: '3.12.7' # <--- Penyesuaian ke versi 3.12.7
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy scikit-learn
+
+    - name: Run Automate Script
+      run: |
+        # Menjalankan script automate sesuai struktur folder
+        python preprocessing/automate_Nama-siswa.py
+
+    - name: Commit and Push Updated Dataset
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        # Add file hasil preprocessing
+        git add preprocessing/gym_dataset_preprocessing.csv
+        
+        # Commit hanya jika ada perubahan data
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update: gym_dataset_preprocessing.csv [skip ci]" && git push)
