@@ -3,21 +3,26 @@ name: Automated Preprocessing Workflow
 on:
   push:
     branches: [ main ]
+    # Workflow tidak akan terpantik jika yang berubah hanya file ini
+    paths-ignore:
+      - 'preprocessing/gym_dataset_preprocessing.csv' 
   pull_request:
     branches: [ main ]
 
 jobs:
   preprocess:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4 # Update ke v4 untuk kompatibilitas lebih baik
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # Update ke v5
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.12.7' # <--- Penyesuaian ke versi 3.12.7
+        python-version: '3.12.7'
 
     - name: Install Dependencies
       run: |
@@ -26,7 +31,6 @@ jobs:
 
     - name: Run Automate Script
       run: |
-        # Menjalankan script automate sesuai struktur folder
         python preprocessing/automate_rifky_rais_maselino.py
 
     - name: Commit and Push Updated Dataset
@@ -34,8 +38,7 @@ jobs:
         git config --global user.name ${{ secrets.USERNAME }}
         git config --global user.email ${{ secrets.EMAIL }}
         
-        # Add file hasil preprocessing
         git add preprocessing/gym_dataset_preprocessing.csv
         
-        # Commit hanya jika ada perubahan data
+        # Pesan commit sudah bersih tanpa [skip ci]
         git diff --quiet && git diff --staged --quiet || (git commit -m "Update: gym_dataset_preprocessing.csv" && git push)
