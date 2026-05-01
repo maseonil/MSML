@@ -3,9 +3,6 @@ name: Automated Preprocessing Workflow
 on:
   push:
     branches: [ main ]
-    # Workflow tidak akan terpantik jika yang berubah hanya file ini
-    paths-ignore:
-      - 'preprocessing/gym_dataset_preprocessing.csv' 
   pull_request:
     branches: [ main ]
 
@@ -40,5 +37,4 @@ jobs:
         
         git add preprocessing/gym_dataset_preprocessing.csv
         
-        # Pesan commit sudah bersih tanpa [skip ci]
         git diff --quiet && git diff --staged --quiet || (git commit -m "Update: gym_dataset_preprocessing.csv" && git push)
