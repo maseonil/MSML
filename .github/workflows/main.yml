@@ -37,4 +37,6 @@ jobs:
         
         git add preprocessing/gym_dataset_preprocessing.csv
         
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update gym_dataset_preprocessed.csv" && git push --force)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update gym_dataset_preprocessed.csv" && git push)
+
+        git push origin Eksperimen_SML_Rifky-Rais-Maselino --force
